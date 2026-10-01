@@ -1,0 +1,1511 @@
+{
+  "project": {
+    "name": "AI Placement OS",
+    "working_title": "CareerPilot AI",
+    "version": "1.0",
+    "type": "AI-powered career preparation and placement SaaS",
+    "goal": "Build a production-oriented platform that creates a personalized placement preparation system for students using resume intelligence, job-description matching, adaptive learning, AI interviews, coding/SQL practice, project-viva preparation, application tracking, and progress analytics.",
+    "primary_users": [
+      "College students preparing for placements",
+      "Students targeting internships and entry-level jobs",
+      "Students preparing for Data Science, Data Analytics, Software Engineering, AI/ML, Business Analyst and related roles"
+    ],
+    "secondary_users": [
+      "College placement cells",
+      "Training and placement departments",
+      "Career coaches"
+    ],
+    "business_model": "Freemium B2C initially, followed by paid student subscriptions and B2B college plans.",
+    "core_principle": "The platform should behave like a personalized placement operating system, not a generic resume checker or chatbot."
+  },
+  "product_vision": {
+    "one_line": "Upload your resume and target JD, and the platform builds and continuously adapts your placement preparation plan.",
+    "core_loop": [
+      "Understand the student's profile",
+      "Understand the target job",
+      "Measure skill and evidence gaps",
+      "Create a personalized preparation plan",
+      "Test the student",
+      "Identify weaknesses",
+      "Adapt the plan",
+      "Simulate interviews",
+      "Track applications and outcomes",
+      "Use performance history to personalize future preparation"
+    ],
+    "differentiators": [
+      "Resume-aware interviews",
+      "JD-specific preparation",
+      "Project-defense/viva preparation",
+      "Persistent weakness and interview memory",
+      "Adaptive difficulty",
+      "SQL/coding evaluation",
+      "Personalized learning roadmap",
+      "Application and interview tracking",
+      "Evidence-based skill matching instead of a single meaningless ATS score"
+    ]
+  },
+  "target_roles": [
+    "Data Scientist",
+    "Data Analyst",
+    "ML Engineer",
+    "AI Engineer",
+    "Software Engineer",
+    "Business Analyst",
+    "Product Analyst",
+    "Data Engineer"
+  ],
+  "user_journey": {
+    "new_user": [
+      "Sign up",
+      "Complete profile",
+      "Upload resume",
+      "System extracts structured profile",
+      "Select target role",
+      "Upload or paste target JD",
+      "System parses JD",
+      "Resume-JD matching is performed",
+      "Skill gaps and evidence gaps are generated",
+      "Personalized roadmap is created",
+      "Student starts daily preparation",
+      "Student takes quizzes, coding/SQL tests and mock interviews",
+      "System updates weakness profile",
+      "Roadmap adapts",
+      "Student tracks applications and interview outcomes"
+    ],
+    "returning_user": [
+      "Open dashboard",
+      "See today's recommended tasks",
+      "Continue unfinished preparation",
+      "Take recommended practice",
+      "Receive feedback",
+      "Review weak concepts",
+      "Start company/JD-specific mock interview",
+      "Update application status"
+    ]
+  },
+  "major_features": {
+    "authentication_and_profile": {
+      "priority": "P0",
+      "features": [
+        "Email/password authentication",
+        "Google OAuth",
+        "Session management",
+        "Student profile",
+        "College and graduation year",
+        "Target roles",
+        "Experience level",
+        "Preferred locations",
+        "Preferred industries",
+        "Resume management",
+        "Privacy and data deletion controls"
+      ]
+    },
+    "resume_intelligence": {
+      "priority": "P0",
+      "purpose": "Convert an uploaded resume into a structured, searchable and explainable candidate profile.",
+      "workflow": [
+        "Upload PDF/DOCX",
+        "Validate file",
+        "Extract text",
+        "Extract sections",
+        "Identify skills",
+        "Identify projects",
+        "Identify work/internship experience",
+        "Identify education",
+        "Identify certifications",
+        "Identify leadership and achievements",
+        "Normalize skills to a canonical skill taxonomy",
+        "Generate embeddings",
+        "Store raw and structured versions",
+        "Show extracted profile for user confirmation"
+      ],
+      "outputs": [
+        "Structured resume JSON",
+        "Skill list",
+        "Skill evidence",
+        "Project list",
+        "Experience list",
+        "Education list",
+        "Certification list",
+        "Resume embeddings",
+        "Potential inconsistencies",
+        "Missing or weak evidence indicators"
+      ],
+      "important_rule": "LLM extraction must be validated and user-editable. Never treat an LLM extraction as ground truth."
+    },
+    "job_description_intelligence": {
+      "priority": "P0",
+      "workflow": [
+        "Accept pasted JD, PDF or URL where legally/technically supported",
+        "Extract text",
+        "Identify job title",
+        "Identify responsibilities",
+        "Identify required skills",
+        "Identify preferred skills",
+        "Identify tools",
+        "Identify education requirements",
+        "Identify experience requirements",
+        "Identify domain knowledge",
+        "Identify soft skills",
+        "Normalize skills",
+        "Generate semantic representation",
+        "Store JD profile"
+      ],
+      "outputs": [
+        "Structured JD JSON",
+        "Required skill list",
+        "Preferred skill list",
+        "Responsibility list",
+        "Experience requirements",
+        "Domain requirements",
+        "Skill embeddings"
+      ]
+    },
+    "resume_jd_matching": {
+      "priority": "P0",
+      "purpose": "Explain how well the student's actual profile aligns with a target job.",
+      "architecture": [
+        "Rule-based skill matching",
+        "Semantic embedding similarity",
+        "Skill synonym mapping",
+        "Evidence matching",
+        "Project relevance matching",
+        "Experience relevance matching",
+        "Optional ML ranking model"
+      ],
+      "output_categories": [
+        "Strong match",
+        "Partial match",
+        "Missing skill",
+        "Weak evidence",
+        "Potentially transferable skill"
+      ],
+      "dashboard": {
+        "metrics": [
+          "Technical skill alignment",
+          "Project alignment",
+          "Experience alignment",
+          "Domain alignment",
+          "Education alignment",
+          "Overall profile alignment"
+        ],
+        "must_not_do": [
+          "Do not present a fabricated probability of getting hired.",
+          "Do not claim to reproduce a company's proprietary ATS.",
+          "Do not reduce the entire analysis to one unexplained ATS score."
+        ]
+      }
+    },
+    "skill_gap_engine": {
+      "priority": "P0",
+      "inputs": [
+        "Student skill profile",
+        "JD requirements",
+        "Skill evidence",
+        "Previous assessment results",
+        "Interview history"
+      ],
+      "logic": [
+        "Identify required skills absent from profile",
+        "Identify skills present but weakly evidenced",
+        "Identify skills where assessment performance is low",
+        "Estimate learning priority",
+        "Map each gap to learning resources and practice"
+      ],
+      "output": "Prioritized skill-gap graph."
+    },
+    "personalized_roadmap": {
+      "priority": "P0",
+      "features": [
+        "Target-date based roadmap",
+        "Daily tasks",
+        "Weekly milestones",
+        "Concept learning",
+        "Practice questions",
+        "SQL practice",
+        "Coding practice",
+        "Project preparation",
+        "Mock interviews",
+        "Revision scheduling",
+        "Weak-topic reinforcement"
+      ],
+      "adaptive_rules": [
+        "Increase practice when performance is low",
+        "Reduce repetition when mastery is demonstrated",
+        "Schedule revision for previously weak concepts",
+        "Increase difficulty gradually",
+        "Prioritize skills required by the active target JD",
+        "Prioritize high-impact gaps before low-impact gaps"
+      ]
+    },
+    "ai_interviewer": {
+      "priority": "P0",
+      "modes": [
+        "HR interview",
+        "Technical interview",
+        "Role-specific interview",
+        "Company/JD-specific interview",
+        "Resume-based interview",
+        "Project-defense interview",
+        "SQL interview",
+        "ML interview",
+        "Behavioral interview"
+      ],
+      "workflow": [
+        "Load student profile",
+        "Load active target JD",
+        "Load resume",
+        "Load previous interview history",
+        "Select interview objectives",
+        "Generate question",
+        "Receive text or voice answer",
+        "Evaluate answer",
+        "Provide feedback",
+        "Store concept-level performance",
+        "Choose next question based on performance"
+      ],
+      "question_strategy": [
+        "Start with appropriate difficulty",
+        "Use follow-up questions",
+        "Probe unsupported resume claims",
+        "Test conceptual understanding",
+        "Test application of concepts",
+        "Test tradeoffs",
+        "Test debugging/reasoning",
+        "Test communication"
+      ],
+      "evaluation_dimensions": [
+        "Technical correctness",
+        "Completeness",
+        "Reasoning",
+        "Relevance",
+        "Communication clarity",
+        "Structure",
+        "Use of examples",
+        "Confidence-related linguistic signals"
+      ],
+      "important_rule": "Evaluation scores are coaching signals, not objective measures of employability."
+    },
+    "interview_memory": {
+      "priority": "P1",
+      "purpose": "Remember recurring weaknesses and previous questions so preparation becomes cumulative.",
+      "stored_information": [
+        "Concept",
+        "Question",
+        "Answer",
+        "Evaluation",
+        "Weakness",
+        "Attempts",
+        "Improvement",
+        "Last practiced date",
+        "Next review date"
+      ],
+      "example": {
+        "concept": "SQL window functions",
+        "status": "weak",
+        "attempts": 4,
+        "successful_attempts": 2,
+        "next_action": "Targeted practice"
+      }
+    },
+    "project_defense": {
+      "priority": "P1",
+      "purpose": "Prepare students to defend projects listed on their resumes.",
+      "workflow": [
+        "Extract project information from resume",
+        "Ask student to confirm project details",
+        "Generate project knowledge graph",
+        "Generate beginner questions",
+        "Generate architecture questions",
+        "Generate implementation questions",
+        "Generate debugging questions",
+        "Generate tradeoff questions",
+        "Generate result/metric questions",
+        "Generate deployment questions",
+        "Run project viva",
+        "Track weak areas"
+      ],
+      "question_types": [
+        "Why this model?",
+        "Why this dataset?",
+        "Why this preprocessing?",
+        "Why these hyperparameters?",
+        "What failed?",
+        "How did you evaluate?",
+        "How would you deploy?",
+        "How would you scale?",
+        "What are limitations?",
+        "What would you change?"
+      ]
+    },
+    "sql_practice": {
+      "priority": "P1",
+      "features": [
+        "Question bank",
+        "JD-specific SQL generation",
+        "Difficulty adaptation",
+        "SQL editor",
+        "Sandbox database",
+        "Query execution",
+        "Expected-result validation",
+        "Concept tagging",
+        "Performance feedback",
+        "Alternative solution hints"
+      ],
+      "evaluation": [
+        "Correctness",
+        "Result correctness",
+        "Edge cases",
+        "Query efficiency",
+        "Concept usage"
+      ]
+    },
+    "coding_practice": {
+      "priority": "P1",
+      "features": [
+        "Problem bank",
+        "Role-specific problems",
+        "Difficulty adaptation",
+        "Code editor",
+        "Sandbox execution",
+        "Test cases",
+        "Hidden tests",
+        "Runtime measurement",
+        "Complexity feedback",
+        "Hints"
+      ],
+      "security": [
+        "Run untrusted code in isolated containers",
+        "Apply CPU limits",
+        "Apply memory limits",
+        "Apply execution timeouts",
+        "Disable unnecessary network access",
+        "Use disposable execution environments"
+      ]
+    },
+    "voice_interview": {
+      "priority": "P2",
+      "workflow": [
+        "Browser microphone capture",
+        "Speech-to-text",
+        "Answer evaluation",
+        "Optional speech analytics",
+        "Feedback generation",
+        "Store transcript and evaluation"
+      ],
+      "possible_technologies": [
+        "Whisper-compatible speech-to-text",
+        "Browser MediaRecorder API",
+        "LLM evaluation service"
+      ],
+      "privacy": [
+        "Ask consent before recording",
+        "Allow deletion of recordings",
+        "Prefer transcript storage over permanent audio storage unless needed"
+      ]
+    },
+    "application_tracker": {
+      "priority": "P1",
+      "features": [
+        "Add company",
+        "Add role",
+        "Add JD",
+        "Application date",
+        "Current stage",
+        "OA date",
+        "Interview dates",
+        "Notes",
+        "Contacts",
+        "Status history",
+        "Offer tracking",
+        "Rejection tracking",
+        "Follow-up reminders"
+      ],
+      "stages": [
+        "Saved",
+        "Applied",
+        "OA Pending",
+        "OA Completed",
+        "Interview 1",
+        "Interview 2",
+        "HR",
+        "Offer",
+        "Rejected",
+        "Withdrawn"
+      ]
+    },
+    "dashboard": {
+      "priority": "P0",
+      "widgets": [
+        "Placement readiness indicators",
+        "Current target job",
+        "Skill gap summary",
+        "Today's tasks",
+        "Weekly progress",
+        "Mock interview history",
+        "SQL/coding performance",
+        "Weak concepts",
+        "Application funnel",
+        "Upcoming interviews"
+      ]
+    },
+    "knowledge_base_and_rag": {
+      "priority": "P1",
+      "knowledge_domains": [
+        "Python",
+        "SQL",
+        "Statistics",
+        "Machine Learning",
+        "Deep Learning",
+        "Data Structures",
+        "System Design",
+        "GenAI",
+        "Business Analytics",
+        "Behavioral interviews"
+      ],
+      "retrieval_pipeline": [
+        "Query understanding",
+        "Embedding",
+        "Vector retrieval",
+        "Metadata filtering",
+        "Optional lexical retrieval",
+        "Reranking",
+        "Context assembly",
+        "LLM response",
+        "Citation/reference generation where applicable"
+      ],
+      "quality_metrics": [
+        "Recall@K",
+        "MRR",
+        "Context precision",
+        "Answer faithfulness",
+        "Answer relevance"
+      ]
+    }
+  },
+  "ai_ml_system": {
+    "architecture": {
+      "resume_parser": "LLM + deterministic document parsing + schema validation",
+      "jd_parser": "LLM + skill taxonomy + schema validation",
+      "matching": "Rule-based matching + embeddings + optional learning-to-rank model",
+      "question_generation": "LLM + retrieval + difficulty metadata",
+      "answer_evaluation": "LLM rubric + deterministic checks where possible",
+      "personalization": "Rule engine initially; ML ranking/recommendation later",
+      "readiness_model": "Optional supervised model after sufficient historical data exists",
+      "adaptive_difficulty": "Performance-based rule engine initially; contextual bandit/recommendation model later"
+    },
+    "model_development_principle": "Do not train ML models just to claim ML. Use classical ML where labeled data and a measurable prediction problem exist. Use LLMs for language generation/extraction and deterministic systems for validation.",
+    "future_models": [
+      {
+        "name": "Question Difficulty Predictor",
+        "target": "Expected probability that a question is appropriate for the user",
+        "features": [
+          "Topic",
+          "Question difficulty",
+          "Past accuracy",
+          "Time taken",
+          "Attempts",
+          "Recent performance"
+        ]
+      },
+      {
+        "name": "Skill Mastery Estimator",
+        "target": "Estimated mastery level for a concept",
+        "features": [
+          "Quiz accuracy",
+          "Interview performance",
+          "Coding performance",
+          "Recency",
+          "Number of successful attempts"
+        ]
+      },
+      {
+        "name": "Question Recommendation Model",
+        "target": "Rank the next best question for a student",
+        "features": [
+          "Target JD",
+          "Weak skills",
+          "Difficulty",
+          "Past questions",
+          "Performance",
+          "Time available"
+        ]
+      }
+    ]
+  },
+  "data_model": {
+    "database": "PostgreSQL",
+    "vector_extension": "pgvector",
+    "core_tables": {
+      "users": [
+        "id",
+        "email",
+        "name",
+        "college",
+        "graduation_year",
+        "target_roles",
+        "created_at"
+      ],
+      "resumes": [
+        "id",
+        "user_id",
+        "file_url",
+        "raw_text",
+        "structured_json",
+        "version",
+        "embedding",
+        "created_at"
+      ],
+      "jobs": [
+        "id",
+        "user_id",
+        "company",
+        "title",
+        "jd_text",
+        "structured_json",
+        "embedding",
+        "created_at"
+      ],
+      "skills": [
+        "id",
+        "canonical_name",
+        "category",
+        "aliases"
+      ],
+      "user_skills": [
+        "user_id",
+        "skill_id",
+        "source",
+        "evidence",
+        "confidence",
+        "mastery_level"
+      ],
+      "job_skills": [
+        "job_id",
+        "skill_id",
+        "importance",
+        "required_or_preferred"
+      ],
+      "projects": [
+        "id",
+        "user_id",
+        "name",
+        "description",
+        "technologies",
+        "metrics",
+        "embedding"
+      ],
+      "interviews": [
+        "id",
+        "user_id",
+        "job_id",
+        "type",
+        "started_at",
+        "completed_at",
+        "overall_feedback"
+      ],
+      "questions": [
+        "id",
+        "topic",
+        "difficulty",
+        "type",
+        "question_text",
+        "reference_answer",
+        "metadata"
+      ],
+      "answers": [
+        "id",
+        "interview_id",
+        "question_id",
+        "answer_text",
+        "transcript",
+        "evaluation_json",
+        "created_at"
+      ],
+      "skill_attempts": [
+        "id",
+        "user_id",
+        "skill_id",
+        "activity_type",
+        "score",
+        "time_taken",
+        "created_at"
+      ],
+      "roadmaps": [
+        "id",
+        "user_id",
+        "job_id",
+        "plan_json",
+        "start_date",
+        "target_date",
+        "status"
+      ],
+      "applications": [
+        "id",
+        "user_id",
+        "company",
+        "role",
+        "job_id",
+        "stage",
+        "applied_at",
+        "notes"
+      ],
+      "subscriptions": [
+        "id",
+        "user_id",
+        "plan",
+        "provider",
+        "provider_subscription_id",
+        "status",
+        "renewal_date"
+      ],
+      "feedback": [
+        "id",
+        "user_id",
+        "feature",
+        "rating",
+        "comment",
+        "created_at"
+      ]
+    }
+  },
+  "backend": {
+    "framework": "FastAPI",
+    "language": "Python",
+    "service_boundaries": [
+      "auth service",
+      "resume service",
+      "job/JD service",
+      "matching service",
+      "roadmap service",
+      "interview service",
+      "question service",
+      "evaluation service",
+      "application tracker service",
+      "billing service",
+      "analytics service"
+    ],
+    "api_groups": {
+      "auth": [
+        "POST /api/auth/register",
+        "POST /api/auth/login",
+        "POST /api/auth/logout",
+        "GET /api/auth/me"
+      ],
+      "resume": [
+        "POST /api/resumes",
+        "GET /api/resumes",
+        "GET /api/resumes/{resume_id}",
+        "PATCH /api/resumes/{resume_id}",
+        "DELETE /api/resumes/{resume_id}"
+      ],
+      "jobs": [
+        "POST /api/jobs",
+        "GET /api/jobs",
+        "GET /api/jobs/{job_id}",
+        "DELETE /api/jobs/{job_id}"
+      ],
+      "matching": [
+        "POST /api/matching/{job_id}",
+        "GET /api/matching/{job_id}"
+      ],
+      "roadmap": [
+        "POST /api/roadmaps",
+        "GET /api/roadmaps/{roadmap_id}",
+        "PATCH /api/roadmaps/{roadmap_id}",
+        "POST /api/roadmaps/{roadmap_id}/recalculate"
+      ],
+      "interviews": [
+        "POST /api/interviews",
+        "GET /api/interviews",
+        "GET /api/interviews/{interview_id}",
+        "POST /api/interviews/{interview_id}/answer",
+        "POST /api/interviews/{interview_id}/complete"
+      ],
+      "practice": [
+        "GET /api/questions",
+        "POST /api/questions/next",
+        "POST /api/sql/execute",
+        "POST /api/code/execute"
+      ],
+      "applications": [
+        "POST /api/applications",
+        "GET /api/applications",
+        "PATCH /api/applications/{application_id}",
+        "DELETE /api/applications/{application_id}"
+      ],
+      "feedback": [
+        "POST /api/feedback"
+      ],
+      "billing": [
+        "GET /api/plans",
+        "POST /api/billing/checkout",
+        "POST /api/billing/webhook"
+      ]
+    }
+  },
+  "frontend": {
+    "framework": "Next.js",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS",
+    "ui_requirements": [
+      "Responsive desktop-first design",
+      "Mobile-friendly student dashboard",
+      "Clean SaaS interface",
+      "Progress visualization",
+      "Skill-gap visualization",
+      "Interview interface",
+      "Code/SQL editor",
+      "Application Kanban board",
+      "Accessible forms",
+      "Loading/error/empty states"
+    ],
+    "pages": [
+      "/",
+      "/login",
+      "/signup",
+      "/onboarding",
+      "/dashboard",
+      "/resume",
+      "/jobs",
+      "/jobs/[id]",
+      "/match/[jobId]",
+      "/roadmap",
+      "/practice",
+      "/practice/sql",
+      "/practice/coding",
+      "/interview",
+      "/interview/[id]",
+      "/projects",
+      "/applications",
+      "/analytics",
+      "/settings",
+      "/billing"
+    ]
+  },
+  "storage": {
+    "database": "PostgreSQL",
+    "vector_store": "pgvector",
+    "object_storage": "Amazon S3 or equivalent object storage",
+    "cache": "Redis",
+    "queue": "Redis-backed task queue initially; managed queue later if needed",
+    "stored_files": [
+      "Resume files",
+      "Optional interview audio",
+      "Optional user documents"
+    ]
+  },
+  "async_workflows": {
+    "resume_processing": [
+      "Upload file",
+      "Store object",
+      "Create processing job",
+      "Extract text",
+      "Parse structure",
+      "Validate JSON schema",
+      "Normalize skills",
+      "Generate embeddings",
+      "Persist profile",
+      "Notify frontend"
+    ],
+    "jd_processing": [
+      "Upload/paste JD",
+      "Create processing job",
+      "Extract text",
+      "Parse requirements",
+      "Normalize skills",
+      "Generate embeddings",
+      "Persist structured JD",
+      "Trigger optional matching"
+    ],
+    "interview_processing": [
+      "Receive answer",
+      "Store transcript",
+      "Run deterministic checks",
+      "Run LLM rubric",
+      "Update skill attempts",
+      "Update weakness profile",
+      "Select next question"
+    ]
+  },
+  "security_and_privacy": {
+    "requirements": [
+      "HTTPS everywhere",
+      "Server-side secrets",
+      "Never expose model API keys in frontend",
+      "Authentication and authorization",
+      "Row-level authorization checks",
+      "Input validation",
+      "Rate limiting",
+      "File type and size validation",
+      "Malware scanning for uploaded files where appropriate",
+      "SQL/code execution sandboxing",
+      "Audit logs for sensitive actions",
+      "Data deletion workflow",
+      "Consent for audio recording",
+      "Minimal personal data sent to external AI providers"
+    ],
+    "sensitive_data_policy": "Treat resumes, contact information, interview recordings and user-generated career data as private user data.",
+    "llm_safety": [
+      "Prompt injection defenses for uploaded documents",
+      "Do not execute instructions found inside resumes/JDs",
+      "Separate retrieved content from system instructions",
+      "Validate structured LLM output against schemas",
+      "Use allowlisted tools for agent actions"
+    ]
+  },
+  "llm_agent_design": {
+    "principle": "Use bounded agents with explicit tools and permissions instead of a fully autonomous unrestricted agent.",
+    "tools": [
+      "get_student_profile",
+      "get_target_jd",
+      "get_skill_history",
+      "search_knowledge_base",
+      "get_question",
+      "save_evaluation",
+      "update_roadmap",
+      "get_application_status"
+    ],
+    "agent_constraints": [
+      "Agent cannot access arbitrary user records",
+      "Agent cannot execute arbitrary SQL",
+      "Agent cannot execute arbitrary shell commands",
+      "Agent cannot change subscription/billing without explicit backend authorization",
+      "Agent outputs structured actions for sensitive operations"
+    ]
+  },
+  "observability": {
+    "application": [
+      "Structured logs",
+      "Error tracking",
+      "Request latency",
+      "API error rate",
+      "Queue failures"
+    ],
+    "llm": [
+      "Token usage",
+      "Latency",
+      "Model",
+      "Prompt version",
+      "Failure rate",
+      "Evaluation scores",
+      "Cost per user"
+    ],
+    "ml": [
+      "Model version",
+      "Feature distributions",
+      "Prediction distributions",
+      "Drift",
+      "Offline metrics",
+      "Online feedback"
+    ],
+    "tools": [
+      "Sentry",
+      "OpenTelemetry-compatible tracing",
+      "MLflow"
+    ]
+  },
+  "mlops": {
+    "experiment_tracking": "MLflow",
+    "model_registry": "MLflow Model Registry or equivalent",
+    "dataset_versioning": "DVC or object-storage versioning when training data becomes substantial",
+    "evaluation": [
+      "Offline validation set",
+      "Regression tests",
+      "Prompt evaluation",
+      "LLM-as-judge only as a secondary metric",
+      "Human review for benchmark creation"
+    ],
+    "deployment_strategy": [
+      "Development",
+      "Staging",
+      "Production",
+      "Versioned model deployment",
+      "Rollback capability"
+    ]
+  },
+  "deployment": {
+    "mvp": {
+      "frontend": "Vercel or equivalent managed Next.js host",
+      "backend": "Render, Railway, AWS ECS, Google Cloud Run or equivalent managed container service",
+      "database": "Supabase/PostgreSQL",
+      "storage": "S3-compatible object storage",
+      "redis": "Managed Redis",
+      "ci_cd": "GitHub Actions",
+      "monitoring": "Sentry",
+      "ai": "External LLM/embedding APIs initially"
+    },
+    "production_scale": {
+      "frontend": "CDN + managed Next.js deployment",
+      "backend": "AWS ECS/Fargate or Kubernetes only when scale justifies it",
+      "database": "Managed PostgreSQL with read replicas when needed",
+      "storage": "S3",
+      "cache": "Redis",
+      "queue": "Managed queue or Kafka only if event volume requires it",
+      "secrets": "AWS Secrets Manager or equivalent",
+      "monitoring": "OpenTelemetry + logs + metrics + Sentry",
+      "autoscaling": "Container autoscaling",
+      "cdn": "CloudFront or equivalent"
+    },
+    "deployment_pipeline": [
+      "Developer pushes code",
+      "GitHub Actions runs lint/tests/type checks",
+      "Build frontend",
+      "Build Docker image",
+      "Security scan",
+      "Deploy to staging",
+      "Run integration tests",
+      "Promote to production",
+      "Monitor",
+      "Rollback if required"
+    ]
+  },
+  "docker": {
+    "initial_services": [
+      "frontend",
+      "backend",
+      "postgres",
+      "redis",
+      "worker"
+    ],
+    "future_services": [
+      "mlflow",
+      "sandbox-runner",
+      "observability stack"
+    ],
+    "local_command": "docker compose up --build"
+  },
+  "testing": {
+    "backend": [
+      "Unit tests",
+      "API tests",
+      "Database tests",
+      "Authentication tests",
+      "Authorization tests",
+      "File-upload tests"
+    ],
+    "frontend": [
+      "Component tests",
+      "Form validation tests",
+      "Critical user-flow tests"
+    ],
+    "ai": [
+      "Structured output schema tests",
+      "Prompt regression tests",
+      "Hallucination tests",
+      "Prompt injection tests",
+      "Resume extraction benchmark",
+      "JD extraction benchmark",
+      "Matching benchmark",
+      "Interview evaluation consistency tests"
+    ],
+    "ml": [
+      "Train/validation/test split",
+      "Cross-validation where appropriate",
+      "Data leakage checks",
+      "Baseline comparison",
+      "Calibration",
+      "Drift tests"
+    ],
+    "security": [
+      "Dependency scanning",
+      "Secret scanning",
+      "API authorization testing",
+      "Rate-limit testing",
+      "Sandbox escape testing"
+    ]
+  },
+  "analytics_and_product_metrics": {
+    "activation": [
+      "Signup completion",
+      "Resume upload rate",
+      "First JD analysis completion",
+      "First practice completion"
+    ],
+    "engagement": [
+      "DAU",
+      "WAU",
+      "Practice sessions",
+      "Interview sessions",
+      "Tasks completed"
+    ],
+    "learning": [
+      "Skill improvement",
+      "Question accuracy improvement",
+      "Weak-topic recovery",
+      "Interview score trend"
+    ],
+    "business": [
+      "Free-to-paid conversion",
+      "Monthly recurring revenue",
+      "Churn",
+      "Average revenue per user",
+      "Cost per active user",
+      "LLM cost per user"
+    ]
+  },
+  "monetization": {
+    "initial_strategy": "Freemium",
+    "illustrative_plans": [
+      {
+        "name": "Free",
+        "price": "₹0",
+        "features": [
+          "1 resume analysis",
+          "Limited JD analyses",
+          "Limited mock interviews",
+          "Basic roadmap",
+          "Basic application tracker"
+        ]
+      },
+      {
+        "name": "Student Pro",
+        "price": "Illustrative: ₹199-₹299/month",
+        "features": [
+          "More JD analyses",
+          "Personalized roadmap",
+          "More mock interviews",
+          "Project defense",
+          "Advanced analytics",
+          "Interview memory",
+          "SQL/coding practice"
+        ]
+      },
+      {
+        "name": "Placement Pack",
+        "price": "Illustrative: ₹499-₹999 for a fixed preparation period",
+        "features": [
+          "Target-company preparation",
+          "Intensive mock interviews",
+          "Project defense",
+          "Advanced roadmap"
+        ]
+      },
+      {
+        "name": "College",
+        "price": "Custom B2B pricing",
+        "features": [
+          "Student management",
+          "Placement dashboard",
+          "College-wide analytics",
+          "Admin controls",
+          "Bulk access"
+        ]
+      }
+    ],
+    "pricing_note": "These prices are hypotheses for experimentation, not validated market prices."
+  },
+  "mvp_scope": {
+    "objective": "Launch a usable product quickly and validate whether students repeatedly use the system.",
+    "include": [
+      "Authentication",
+      "Profile",
+      "Resume upload and extraction",
+      "JD upload/paste and extraction",
+      "Resume-JD matching",
+      "Skill gap analysis",
+      "Personalized roadmap",
+      "Basic AI mock interview",
+      "Basic progress dashboard"
+    ],
+    "exclude_initially": [
+      "Voice interviews",
+      "Advanced ML readiness prediction",
+      "College admin dashboard",
+      "Complex recommendation models",
+      "Kubernetes",
+      "Kafka",
+      "Native mobile apps",
+      "Large custom-trained language model"
+    ]
+  },
+  "development_roadmap": {
+    "phase_0": {
+      "duration": "2-3 days",
+      "goal": "Architecture and product setup",
+      "tasks": [
+        "Create GitHub repository",
+        "Define database schema",
+        "Create frontend/backend projects",
+        "Configure environment variables",
+        "Set up Docker Compose",
+        "Set up CI"
+      ]
+    },
+    "phase_1": {
+      "duration": "Week 1",
+      "goal": "Authentication and resume intelligence",
+      "tasks": [
+        "Auth",
+        "Profile",
+        "Resume upload",
+        "PDF text extraction",
+        "LLM structured extraction",
+        "Resume profile UI",
+        "PostgreSQL persistence"
+      ]
+    },
+    "phase_2": {
+      "duration": "Week 2",
+      "goal": "JD analysis and matching",
+      "tasks": [
+        "JD upload/paste",
+        "JD parser",
+        "Skill taxonomy",
+        "Embedding generation",
+        "Resume-JD matching",
+        "Skill gap UI"
+      ]
+    },
+    "phase_3": {
+      "duration": "Week 3",
+      "goal": "Personalized roadmap",
+      "tasks": [
+        "Roadmap generator",
+        "Daily tasks",
+        "Skill priority engine",
+        "Progress tracking",
+        "Dashboard"
+      ]
+    },
+    "phase_4": {
+      "duration": "Week 4",
+      "goal": "AI interviewer",
+      "tasks": [
+        "Interview session model",
+        "Question generation",
+        "Follow-up questions",
+        "Answer evaluation",
+        "Interview report",
+        "Weakness tracking"
+      ]
+    },
+    "phase_5": {
+      "duration": "Weeks 5-6",
+      "goal": "Practice engine",
+      "tasks": [
+        "SQL practice",
+        "Coding practice",
+        "Project defense",
+        "Question tagging",
+        "Adaptive difficulty"
+      ]
+    },
+    "phase_6": {
+      "duration": "Weeks 7-8",
+      "goal": "Production hardening",
+      "tasks": [
+        "Docker production images",
+        "Cloud deployment",
+        "CI/CD",
+        "Monitoring",
+        "Rate limiting",
+        "Security review",
+        "LLM cost controls",
+        "User feedback system"
+      ]
+    },
+    "phase_7": {
+      "duration": "After initial users",
+      "goal": "Monetization and intelligence",
+      "tasks": [
+        "Payments",
+        "Subscription management",
+        "ML-based personalization",
+        "Voice interviews",
+        "College dashboard",
+        "Referral system",
+        "Advanced analytics"
+      ]
+    }
+  },
+  "recommended_build_order": [
+    "Database schema",
+    "FastAPI skeleton",
+    "Next.js skeleton",
+    "Authentication",
+    "Resume upload",
+    "Resume extraction",
+    "JD extraction",
+    "Skill normalization",
+    "Embeddings",
+    "Resume-JD matching",
+    "Skill gap",
+    "Roadmap",
+    "Dashboard",
+    "Interview engine",
+    "Interview evaluation",
+    "Practice engine",
+    "Application tracker",
+    "Docker",
+    "CI/CD",
+    "Cloud deployment",
+    "Monitoring",
+    "Payments",
+    "Advanced ML"
+  ],
+  "recommended_initial_tech_stack": {
+    "frontend": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "backend": [
+      "Python",
+      "FastAPI",
+      "Pydantic",
+      "SQLAlchemy"
+    ],
+    "database": [
+      "PostgreSQL",
+      "pgvector"
+    ],
+    "cache_and_queue": [
+      "Redis"
+    ],
+    "ai": [
+      "LLM API",
+      "Embedding model/API",
+      "Optional reranker"
+    ],
+    "ml": [
+      "scikit-learn",
+      "XGBoost or LightGBM",
+      "Pandas",
+      "NumPy"
+    ],
+    "document_processing": [
+      "PyMuPDF",
+      "python-docx",
+      "OCR only when necessary"
+    ],
+    "speech": [
+      "Whisper-compatible STT",
+      "Browser MediaRecorder API"
+    ],
+    "mlops": [
+      "MLflow"
+    ],
+    "devops": [
+      "Docker",
+      "GitHub Actions"
+    ],
+    "cloud": [
+      "AWS S3",
+      "AWS ECS/Fargate or managed container host",
+      "Managed PostgreSQL",
+      "Managed Redis"
+    ],
+    "monitoring": [
+      "Sentry",
+      "OpenTelemetry"
+    ],
+    "payments": [
+      "Razorpay or Stripe depending on market/setup"
+    ]
+  },
+  "repository_structure": {
+    "root": [
+      "frontend/",
+      "backend/",
+      "worker/",
+      "ml/",
+      "prompts/",
+      "tests/",
+      "infra/",
+      "docs/",
+      ".github/workflows/",
+      "docker-compose.yml",
+      "README.md",
+      ".env.example"
+    ],
+    "backend": [
+      "app/main.py",
+      "app/api/",
+      "app/core/",
+      "app/models/",
+      "app/schemas/",
+      "app/services/",
+      "app/repositories/",
+      "app/workers/",
+      "app/utils/"
+    ],
+    "frontend": [
+      "app/",
+      "components/",
+      "lib/",
+      "hooks/",
+      "services/",
+      "types/"
+    ],
+    "ml": [
+      "training/",
+      "features/",
+      "models/",
+      "evaluation/",
+      "inference/"
+    ],
+    "tests": [
+      "unit/",
+      "integration/",
+      "e2e/",
+      "ai_eval/"
+    ]
+  },
+  "environment_variables": [
+    "DATABASE_URL",
+    "REDIS_URL",
+    "OBJECT_STORAGE_BUCKET",
+    "OBJECT_STORAGE_REGION",
+    "OBJECT_STORAGE_ACCESS_KEY",
+    "OBJECT_STORAGE_SECRET_KEY",
+    "LLM_API_KEY",
+    "EMBEDDING_API_KEY",
+    "AUTH_SECRET",
+    "SENTRY_DSN",
+    "MLFLOW_TRACKING_URI",
+    "PAYMENT_SECRET",
+    "PAYMENT_WEBHOOK_SECRET"
+  ],
+  "product_rules": [
+    "Never expose secrets in frontend code.",
+    "Never claim that the platform can predict whether a student will get hired.",
+    "Never claim to reproduce a company's proprietary ATS.",
+    "Use explainable evidence for resume-JD matching.",
+    "LLM-generated structured data must be schema validated.",
+    "User must be able to edit extracted resume information.",
+    "Use deterministic checks whenever possible.",
+    "Do not train custom ML models before collecting a meaningful labeled dataset.",
+    "Do not add microservices prematurely.",
+    "Do not add Kubernetes until scale actually requires it.",
+    "Keep LLM costs visible and bounded.",
+    "Keep user career data private.",
+    "Make all major AI outputs auditable."
+  ],
+  "success_criteria": {
+    "mvp": [
+      "A student can register",
+      "A student can upload a resume",
+      "The system creates an editable structured profile",
+      "A student can upload/paste a JD",
+      "The system identifies required skills",
+      "The system compares resume and JD",
+      "The system identifies skill gaps",
+      "The system generates a roadmap",
+      "The student can complete a mock interview",
+      "The system produces useful feedback",
+      "The dashboard shows progress"
+    ],
+    "product_validation": [
+      "At least 10 real students complete onboarding",
+      "Users return for multiple preparation sessions",
+      "Users complete more than one interview/practice session",
+      "Users report that JD-specific preparation is useful",
+      "Users can identify at least one concrete improvement from feedback",
+      "At least some users express willingness to pay"
+    ],
+    "production_readiness": [
+      "Automated tests",
+      "CI/CD",
+      "Authentication",
+      "Authorization",
+      "Monitoring",
+      "Rate limiting",
+      "Secure file handling",
+      "LLM cost tracking",
+      "Error handling",
+      "Data deletion",
+      "Backup strategy"
+    ]
+  },
+  "first_demo_flow": [
+    "Create account",
+    "Upload a real resume",
+    "Upload a real Data Scientist JD",
+    "Show extracted profile",
+    "Show JD requirements",
+    "Show skill/evidence matching",
+    "Show missing skills",
+    "Generate 7-day roadmap",
+    "Start a resume-specific mock interview",
+    "Answer 5 questions",
+    "Show feedback",
+    "Show updated weak-skill profile",
+    "Show next recommended tasks"
+  ],
+  "long_term_product": {
+    "future_features": [
+      "Company-specific preparation packs",
+      "College placement dashboard",
+      "Recruiter-facing candidate preparation analytics",
+      "Referral and peer study groups",
+      "AI study buddy",
+      "Voice interviews",
+      "Live coding interviews",
+      "Interview scheduling",
+      "Job discovery integrations",
+      "Skill certificates",
+      "Peer benchmarking with privacy-preserving aggregates",
+      "Mobile app",
+      "Browser extension",
+      "Career mentor marketplace"
+    ],
+    "strategic_direction": "Start as a student productivity and preparation tool. Once repeated usage and willingness to pay are validated, expand into a broader career intelligence platform and B2B college product."
+  },
+  "implementation_guidance_for_ai_coding_agent": {
+    "instruction": "Build incrementally. Never generate the entire application in one step.",
+    "rules": [
+      "Start with database schema and API contracts.",
+      "Implement authentication before protected features.",
+      "Implement resume ingestion end-to-end before JD matching.",
+      "Use mock AI responses while frontend flows are being developed.",
+      "Add real LLM integration after schemas are stable.",
+      "Keep LLM prompts in version-controlled files.",
+      "Write tests alongside each feature.",
+      "Use typed request/response schemas.",
+      "Keep business logic in services rather than route handlers.",
+      "Use repository/data-access layers for database operations.",
+      "Use background jobs for expensive document/embedding operations.",
+      "Log request IDs and processing IDs.",
+      "Keep model/provider abstraction so AI providers can be replaced.",
+      "Use feature flags for experimental AI/ML features.",
+      "Build a working MVP before advanced ML."
+    ],
+    "first_tasks": [
+      "Initialize monorepo",
+      "Create Next.js frontend",
+      "Create FastAPI backend",
+      "Create PostgreSQL schema",
+      "Add Docker Compose",
+      "Implement auth",
+      "Implement resume upload",
+      "Implement resume parser",
+      "Create profile page",
+      "Implement JD parser",
+      "Implement matching endpoint",
+      "Create skill-gap dashboard"
+    ]
+  },
+  "resume_project_positioning": {
+    "project_title": "AI Placement OS — Personalized Career Intelligence Platform",
+    "resume_summary": "Built a production-oriented AI career platform that parses resumes and job descriptions, performs semantic skill/evidence matching, generates adaptive preparation roadmaps, conducts resume-aware mock interviews, tracks concept-level weaknesses, and exposes personalized placement analytics through a full-stack SaaS architecture.",
+    "resume_technologies": [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "pgvector",
+      "LLMs",
+      "Embeddings",
+      "RAG",
+      "scikit-learn",
+      "XGBoost/LightGBM",
+      "Redis",
+      "Docker",
+      "AWS",
+      "MLflow",
+      "GitHub Actions"
+    ]
+  }
+}
